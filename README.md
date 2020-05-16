@@ -33,7 +33,7 @@ width/height dimensions.
 Each document requires the opening and closing `svg` tags in between which
 various SVG elements can be generated.
 
-	canvas.DocStart(generator.Svg.ViewBox(0, 0, 400, 400))
+	canvas.DocStart(canvas.ViewBox(0, 0, 400, 400))
 	// ...more elements
 	canvas.DocClose()
 
@@ -41,24 +41,39 @@ Then output the contents:
 
 	fmt.Println(image.String())
 
-An example using the pattern generator might be:
+Here is an example using the pattern generator:
 
     width := 400
     height := 400
 
 	image := bytes.NewBuffer(nil)
-	generator, _ := pattern.New(width, height, seed, image)
+	p, _ := pattern.New(width, height, seed, image)
 
-	generator.Svg.DocStart(generator.Svg.ViewBox(0, 0, width, height))
+	p.Svg.DocStart(p.Svg.ViewBox(0, 0, width, height))
 
-	if err := generator.Generate(); err != nil {
+	if err := p.Generate(); err != nil {
 		println(err.Error())
 		return
 	}
 
-	generator.Svg.DocClose()
+	p.Svg.DocClose()
 
 	fmt.Println(image.String())
+
+
+### Examples
+
+There are several examples that can be generated with the command-line app:
+
+    $ svgtoolkit examples -name="rect"
+
+See the [example command](cmd/svgtoolkit/examples/examples.go) for the source code of these examples.
+
+There are currently three examples:
+
+* `circle` - 3 overlapping coloured circles.
+* `rect`   - 3 overlapping coloured rectangles.
+* `use`    - SVG logo, using the `pattern` and `ùse` elements. 
 
 
 ## Installation

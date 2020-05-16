@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/mrcook/svgtoolkit/cmd/svgtoolkit/examples"
+
 	"github.com/google/subcommands"
 
 	"github.com/mrcook/svgtoolkit"
@@ -20,6 +22,7 @@ func main() {
 	subcommands.Register(subcommands.HelpCommand(), "")
 	subcommands.Register(subcommands.CommandsCommand(), "")
 	subcommands.Register(&geopattern.PatternCmd{}, "")
+	subcommands.Register(&examples.ExamplesCmd{}, "")
 
 	flag.Parse()
 
