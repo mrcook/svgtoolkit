@@ -63,7 +63,7 @@ func (c Colour) Rgb() (int, int, int) {
 func (c *Colour) transform() {
 	hue, sat, lum := c.colour.Hsl()
 
-	hueSeedOffset := float64(c.seed.ToInt(14, 3))
+	hueSeedOffset := float64(c.seed.ToInt(10, 3))
 	hueOffset := ReMap(hueSeedOffset, 0, 4095, 0, 359)
 	hue = hue - hueOffset
 
