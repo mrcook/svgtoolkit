@@ -15,16 +15,14 @@ Although SVG Toolkit is intended to be used as a library, there is a simple CLI
 command for generating `svg` pattern documents.
 
 
-## Installation
-
-    go get github.com/mrcook/svgtoolkit
-
-To install the `pattern` command:
-
-    $ go get github.com/mrcook/svgtoolkit/...
-
-
 ## Toolkit Usage
+
+To generate geo patterns from the command-line:
+
+    $ svgtoolkit pattern -w=400 -h=300 -s="SVG Toolkit"
+
+
+**As a library**
 
 A new `svg.Canvas` must first be initiated with an `io.Writer` and document
 width/height dimensions.
@@ -63,7 +61,13 @@ An example using the pattern generator might be:
 	fmt.Println(image.String())
 
 
-## LICENSE
+## Installation
+
+    $ go get github.com/mrcook/svgtoolkit
+    $ go get github.com/mrcook/svgtoolkit/...
+
+
+## License
 
 Copyright (c) 2020 Michael R. Cook. All rights reserved.
 
