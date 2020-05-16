@@ -14,6 +14,10 @@ Check out the repository linked above for an example of the generated patterns.
 Although SVG Toolkit is intended to be used as a library, there is a simple CLI
 command for generating `svg` pattern documents.
 
+![book cover example: Optimism by Helen Keller](example.jpg)
+
+_An example image of a book cover created for [epubBooks.com](https://www.epubbooks.com/book/1322-optimism)._
+
 
 ## Toolkit Usage
 
