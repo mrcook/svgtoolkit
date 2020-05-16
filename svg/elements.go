@@ -59,7 +59,7 @@ func (s Canvas) FilterClose() {
 //
 // SVG Reference: https://www.w3.org/TR/SVG11/struct.html#Groups
 func (s Canvas) Group(attributes ...string) {
-	s.printf(`<g%s>`, strings.Join(attributes, " "))
+	s.printf(`<g %s>`, strings.Join(attributes, " "))
 	s.println()
 }
 
