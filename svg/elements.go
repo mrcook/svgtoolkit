@@ -63,12 +63,6 @@ func (s Canvas) Group(attributes ...string) {
 	s.println()
 }
 
-// GroupNamed is like the normal Group, but named using an `id` attribute.
-func (s Canvas) GroupNamed(id string, attributes ...string) {
-	s.print(`<g id="%s" %s>`, id, strings.Join(attributes, " "))
-	s.println()
-}
-
 // GroupClose writes the closing `</g> tag to the canvas.
 func (s Canvas) GroupClose() { s.println(`</g>`) }
 
@@ -152,6 +146,15 @@ func (s Canvas) Text(x int, y int, text string, attributes ...string) {
 	s.printf(`<text x="%d" y="%d" %s>`, x, y, strings.Join(attributes, " "))
 	xml.Escape(s.writer, []byte(text))
 	s.println("</text>")
+}
+
+// Use references another element and indicates that the graphical contents of
+// that element is included/drawn at that given point in the document.
+//
+// SVG Reference: https://www.w3.org/TR/SVG11/struct.html#UseElement
+func (s Canvas) Use(xlink string, attributes ...string) {
+	s.printf(`<use xlink:href="#%s" %s />`, xlink, strings.Join(attributes, " "))
+	s.println()
 }
 
 //
