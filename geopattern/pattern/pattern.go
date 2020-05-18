@@ -9,7 +9,6 @@ package pattern
 import (
 	"fmt"
 	"io"
-	"os"
 
 	"github.com/mrcook/svgtoolkit/geopattern/colour"
 	"github.com/mrcook/svgtoolkit/geopattern/seed"
@@ -115,7 +114,6 @@ func (p Pattern) generatePatterns() error {
 	case RingsOverlapping:
 		p.RingsOverlapping()
 	case SineWaves:
-		os.Exit(1)
 		p.SineWaves()
 	case Squares:
 		p.Squares()
