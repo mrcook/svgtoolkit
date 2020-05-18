@@ -21,6 +21,8 @@ const defaultBackgroundColour = "#933c3c"
 // packages for correct usage. It requires a svg.Canvas upon which to write the
 // SVG shapes, along with basic colour and styling configuration.
 type Pattern struct {
+	X      int // Horizontal Position
+	Y      int // Vertical Position
 	Width  int // Width of the pattern canvas
 	Height int // Height of the pattern canvas
 
@@ -80,12 +82,16 @@ func (p Pattern) Generate() error {
 		p.Styles = DefaultStylePresets()
 	}
 
+	p.Svg.Group(p.Svg.Transform(p.Svg.Translate(p.X, p.Y)))
+
 	// generate background plane
 	p.Svg.Rect(0, 0, p.Width, p.Height, fmt.Sprintf(`fill="%s"`, p.Svg.RGB(p.BaseColour.Rgb())))
 
 	if err := p.generatePatterns(); err != nil {
 		return err
 	}
+
+	p.Svg.GroupClose()
 
 	return nil
 }
