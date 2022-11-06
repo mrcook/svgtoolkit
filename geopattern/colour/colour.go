@@ -47,7 +47,7 @@ func (c *Colour) HtmlHex() string {
 }
 
 // Rgb returns the RGB integer values for each colour.
-func (c Colour) Rgb() (int, int, int) {
+func (c *Colour) Rgb() (int, int, int) {
 	if c.seed != nil {
 		c.transform()
 	}
