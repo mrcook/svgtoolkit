@@ -6,4 +6,4 @@
 // It is possible to generate patterns from the command line. See the `cmd` directory for more information.
 package svgtoolkit
 
-const Version = "0.1.0"
+const Version = "0.2.0"
