@@ -24,7 +24,7 @@ func New(s string) *Seed {
 // ToInt returns a value taken from the seed at the given index, of the given length.
 //
 // TODO: ignore errors, panic, or return the error?
-func (s Seed) ToInt(index, length int) int {
+func (s *Seed) ToInt(index, length int) int {
 	if length < 1 {
 		length = 1
 	}
