@@ -9,7 +9,7 @@ import (
 // Circle defines a circle based on a center point and a radius.
 //
 // SVG Reference: https://www.w3.org/TR/SVG11/shapes.html#CircleElement
-func (s Canvas) Circle(cx, cy, r interface{}, attributes ...string) {
+func (s *Canvas) Circle(cx, cy, r interface{}, attributes ...string) {
 	s.printf(`<circle cx="%v" cy="%v" r="%v" %s />`, cx, cy, r, strings.Join(attributes, " "))
 	s.println()
 }
@@ -17,11 +17,12 @@ func (s Canvas) Circle(cx, cy, r interface{}, attributes ...string) {
 // Defs element is a container element for referenced elements.
 //
 // SVG Reference: http://www.w3.org/TR/SVG11/struct.html#DefsElement
-func (s Canvas) Defs()      { s.println(`<defs>`) }
-func (s Canvas) DefsClose() { s.println(`</defs>`) }
+func (s *Canvas) Defs()      { s.println(`<defs>`) }
+func (s *Canvas) DefsClose() { s.println(`</defs>`) }
 
+// Filter
 // SVG Reference: http://www.w3.org/TR/SVG11/filters.html#FilterElement
-func (s Canvas) Filter(id string, attributes ...string) {
+func (s *Canvas) Filter(id string, attributes ...string) {
 	s.printf(`<filter id="%s" %s>`, id, strings.Join(attributes, " "))
 	s.println()
 }
@@ -29,7 +30,7 @@ func (s Canvas) Filter(id string, attributes ...string) {
 // FeGaussianBlur provides a filter primitive to perform a Gaussian blur on the input image.
 //
 // SVG Reference: http://www.w3.org/TR/SVG11/filters.html#feGaussianBlurElement
-func (s Canvas) FeGaussianBlur(in string, stdDeviationX, stdDeviationY int, attributes ...string) {
+func (s *Canvas) FeGaussianBlur(in string, stdDeviationX, stdDeviationY int, attributes ...string) {
 	// negative numbers are an error, so prevent it
 	if stdDeviationX < 0 {
 		stdDeviationX = 0
@@ -45,32 +46,32 @@ func (s Canvas) FeGaussianBlur(in string, stdDeviationX, stdDeviationY int, attr
 // position in the image space by the specified vector.
 //
 // SVG Reference: http://www.w3.org/TR/SVG11/filters.html#feOffsetElement
-func (s Canvas) FeOffset(in string, dx, dy interface{}, attributes ...string) {
+func (s *Canvas) FeOffset(in string, dx, dy interface{}, attributes ...string) {
 	s.printf(`<feOffset in="%s" dx="%v" dy="%v" %s />`, in, dx, dy, strings.Join(attributes, " "))
 	s.println()
 }
 
 // FilterClose writes the closing `</filter> tag to the canvas.
-func (s Canvas) FilterClose() {
+func (s *Canvas) FilterClose() {
 	s.println(`</filter>`)
 }
 
 // Group element is a container element for grouping together related graphics elements.
 //
 // SVG Reference: https://www.w3.org/TR/SVG11/struct.html#Groups
-func (s Canvas) Group(attributes ...string) {
+func (s *Canvas) Group(attributes ...string) {
 	s.printf(`<g %s>`, strings.Join(attributes, " "))
 	s.println()
 }
 
 // GroupClose writes the closing `</g> tag to the canvas.
-func (s Canvas) GroupClose() { s.println(`</g>`) }
+func (s *Canvas) GroupClose() { s.println(`</g>`) }
 
 // Path represents the outline of a shape which can be filled, stroked, used
 // as a clipping path, or any combination of the three.
 //
 // SVG Reference: https://www.w3.org/TR/SVG11/paths.html#PathElement
-func (s Canvas) Path(pathData string, attributes ...string) {
+func (s *Canvas) Path(pathData string, attributes ...string) {
 	s.printf(`<path d="%s" %s />`, pathData, strings.Join(attributes, " "))
 	s.println()
 }
@@ -80,7 +81,7 @@ func (s Canvas) Path(pathData string, attributes ...string) {
 // to cover the areas to be painted.
 //
 // SVG Reference: http://www.w3.org/TR/SVG11/pservers.html#Patterns
-func (s Canvas) Pattern(id string, x, y, width, height interface{}, userSpace bool, attributes ...string) {
+func (s *Canvas) Pattern(id string, x, y, width, height interface{}, userSpace bool, attributes ...string) {
 	patternUnits := "userSpaceOnUse"
 	if !userSpace {
 		patternUnits = "objectBoundingBox"
@@ -90,12 +91,12 @@ func (s Canvas) Pattern(id string, x, y, width, height interface{}, userSpace bo
 }
 
 // PatternClose writes the closing `</pattern> tag to the canvas.
-func (s Canvas) PatternClose() { s.println("</pattern>") }
+func (s *Canvas) PatternClose() { s.println("</pattern>") }
 
 // Polygon element defines a closed shape consisting of a set of connected straight line segments.
 //
 // SVG Reference: http://www.w3.org/TR/SVG11/shapes.html#PolygonElement
-func (s Canvas) Polygon(coords [][2]float64, attributes ...string) {
+func (s *Canvas) Polygon(coords [][2]float64, attributes ...string) {
 	var points []string
 
 	for _, p := range coords {
@@ -109,7 +110,7 @@ func (s Canvas) Polygon(coords [][2]float64, attributes ...string) {
 // Typically, polyline elements define open shapes.
 //
 // SVG Reference: https://www.w3.org/TR/SVG11/shapes.html#PolylineElement
-func (s Canvas) Polyline(coords [][2]float64, attributes ...string) {
+func (s *Canvas) Polyline(coords [][2]float64, attributes ...string) {
 	var points []string
 
 	for _, p := range coords {
@@ -124,7 +125,7 @@ func (s Canvas) Polyline(coords [][2]float64, attributes ...string) {
 // the dimensions.
 //
 // SVG Reference: http://www.w3.org/TR/SVG11/shapes.html#RectElement
-func (s Canvas) Rect(x, y, w, h interface{}, attributes ...string) {
+func (s *Canvas) Rect(x, y, w, h interface{}, attributes ...string) {
 	s.printf(`<rect x="%v" y="%v" width="%v" height="%v" %s />`, x, y, w, h, strings.Join(attributes, " "))
 	s.println()
 }
@@ -134,7 +135,7 @@ func (s Canvas) Rect(x, y, w, h interface{}, attributes ...string) {
 // appropriate values for attributes ‘rx’ and ‘ry’.
 //
 // SVG Reference: http://www.w3.org/TR/SVG11/shapes.html#RectElement
-func (s Canvas) RectRounded(x, y, w, h, rx, ry interface{}, attributes ...string) {
+func (s *Canvas) RectRounded(x, y, w, h, rx, ry interface{}, attributes ...string) {
 	s.printf(`<rect x="%v" y="%v" width="%v" height="%v" rx="%v" ry="%v"  %s />`, x, y, w, h, rx, ry, strings.Join(attributes, " "))
 	s.println()
 }
@@ -142,7 +143,7 @@ func (s Canvas) RectRounded(x, y, w, h, rx, ry interface{}, attributes ...string
 // Text element defines a graphics element consisting of text, placed at the requested coordinates.
 //
 // SVG Reference: http://www.w3.org/TR/SVG11/text.html#TextElement
-func (s Canvas) Text(x int, y int, text string, attributes ...string) {
+func (s *Canvas) Text(x int, y int, text string, attributes ...string) {
 	s.printf(`<text x="%d" y="%d" %s>`, x, y, strings.Join(attributes, " "))
 	xml.Escape(s.writer, []byte(text))
 	s.println("</text>")
@@ -152,7 +153,7 @@ func (s Canvas) Text(x int, y int, text string, attributes ...string) {
 // that element is included/drawn at that given point in the document.
 //
 // SVG Reference: https://www.w3.org/TR/SVG11/struct.html#UseElement
-func (s Canvas) Use(xlink string, attributes ...string) {
+func (s *Canvas) Use(xlink string, attributes ...string) {
 	s.printf(`<use xlink:href="#%s" %s />`, xlink, strings.Join(attributes, " "))
 	s.println()
 }
@@ -161,7 +162,7 @@ func (s Canvas) Use(xlink string, attributes ...string) {
 // Helper functions for working with points in polygon/polyline elements.
 //
 
-func (s Canvas) mapCoordsList(coords [][2]interface{}) []string {
+func (s *Canvas) mapCoordsList(coords [][2]interface{}) []string {
 	var points []string
 
 	for i := 0; i < len(coords); i++ {
@@ -178,7 +179,7 @@ func (s Canvas) mapCoordsList(coords [][2]interface{}) []string {
 	return points
 }
 
-func (s Canvas) interfaceNumberToString(num interface{}) (string, bool) {
+func (s *Canvas) interfaceNumberToString(num interface{}) (string, bool) {
 	switch num.(type) {
 	case int:
 		return fmt.Sprintf("%f", num), true
