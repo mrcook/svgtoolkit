@@ -26,12 +26,13 @@ func TestColour_ToHex(t *testing.T) {
 func TestColour_SeedAdjust(t *testing.T) {
 	c, _ := colour.NewWithSeed("#ff00ff", "Seed Test")
 
-	if c.HtmlHex() != ("#0be3f4") {
-		t.Errorf("expected correct HTML colour to be returned, got: '%s'", c.HtmlHex())
+	hex := c.HtmlHex()
+	if c.HtmlHex() != ("#e81763") {
+		t.Errorf("expected correct HTML colour to be returned, got: '%s'", hex)
 	}
 
 	r, g, b := c.Rgb()
-	if r != 202 || g != 232 || b != 22 {
+	if r != 220 || g != 34 || b != 42 {
 		t.Fatalf("expected correct RGB colour to be returned, got: '%d, %d, %d'", r, g, b)
 	}
 }
