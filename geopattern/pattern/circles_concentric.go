@@ -6,12 +6,12 @@ import (
 )
 
 // CirclesConcentric generator pattern.
-func (p Pattern) CirclesConcentric() {
+func (p *Pattern) CirclesConcentric() {
 	scale := p.seedToInt(0, 1)
 	bringSize := p.reMap(scale, 0, 15, 10, 60)
 	strokeWidth := bringSize / 5
 
-	//// calculate new circles size to fit canvas width
+	// // calculate new circles size to fit canvas width
 	columns := math.Ceil(float64(p.Width) / (bringSize + strokeWidth))
 	size := float64(p.Width) / columns
 	// update ring and stroke sizes

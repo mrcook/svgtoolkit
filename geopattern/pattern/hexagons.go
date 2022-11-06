@@ -6,7 +6,7 @@ import (
 )
 
 // Hexagons generator pattern.
-func (p Pattern) Hexagons() {
+func (p *Pattern) Hexagons() {
 	scale := p.seedToInt(0, 1)
 	sideLen := p.reMap(scale, 0, 15, 8, 60)
 	height := sideLen * math.Sqrt(3)
@@ -72,7 +72,7 @@ func (p Pattern) Hexagons() {
 	}
 }
 
-func (p Pattern) buildHexagonShape(sideLen float64, styles []string) {
+func (p *Pattern) buildHexagonShape(sideLen float64, styles []string) {
 	c := sideLen
 	a := c / 2
 	b := math.Sin(60*math.Pi/180) * c

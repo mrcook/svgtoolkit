@@ -3,7 +3,7 @@ package pattern
 import "fmt"
 
 // Plaid generator pattern.
-func (p Pattern) Plaid() {
+func (p *Pattern) Plaid() {
 	height := 0.0
 	width := 0.0
 

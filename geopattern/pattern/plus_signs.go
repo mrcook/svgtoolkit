@@ -3,7 +3,7 @@ package pattern
 import "fmt"
 
 // PlusSigns generator pattern.
-func (p Pattern) PlusSigns() {
+func (p *Pattern) PlusSigns() {
 	squareSize := p.reMap(p.seedToInt(0, 1), 0, 15, 10, 25)
 	plusSize := squareSize * 3
 
@@ -19,7 +19,7 @@ func (p Pattern) PlusSigns() {
 	p.Svg.Rect(0, 0, p.Width, p.Height, `fill="url(#pattern)"`)
 }
 
-func (p Pattern) buildPlusSignsPattern(squareSize, plusSize float64) {
+func (p *Pattern) buildPlusSignsPattern(squareSize, plusSize float64) {
 	index := 0
 	for y := 0; y <= 5; y++ {
 		for x := 0; x <= 5; x++ {
@@ -65,7 +65,7 @@ func (p Pattern) buildPlusSignsPattern(squareSize, plusSize float64) {
 	}
 }
 
-func (p Pattern) buildPlusSignShape(size float64, styles ...string) {
+func (p *Pattern) buildPlusSignShape(size float64, styles ...string) {
 	p.Svg.Group(styles...)
 	p.Svg.Rect(size, 0.0, size, size*3)
 	p.Svg.Rect(0.0, size, size*3, size)

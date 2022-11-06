@@ -6,7 +6,7 @@ import (
 )
 
 // Triangles generator pattern.
-func (p Pattern) Triangles() {
+func (p *Pattern) Triangles() {
 	scale := p.seedToInt(0, 1)
 	sideLen := p.reMap(scale, 0, 15, 15, 80)
 	height := sideLen / 2 * math.Sqrt(3)
@@ -68,7 +68,7 @@ func (p Pattern) Triangles() {
 	}
 }
 
-func (p Pattern) buildTriangleShape(sideLen, height float64, styles []string) {
+func (p *Pattern) buildTriangleShape(sideLen, height float64, styles []string) {
 	halfWidth := sideLen / 2
 	points := [][2]float64{{halfWidth, 0}, {sideLen, height}, {0, height}, {halfWidth, 0}}
 

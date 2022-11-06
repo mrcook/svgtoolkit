@@ -6,7 +6,7 @@ import (
 )
 
 // Tessellation generator pattern.
-func (p Pattern) Tessellation() {
+func (p *Pattern) Tessellation() {
 	// 3.4.6.4 semi-regular tessellation
 	sideLen := p.reMap(p.seedToInt(0, 1), 0, 15, 10, 35) // was dMin: 5, dMax: 40
 	hexWidth := sideLen * 2
@@ -27,7 +27,7 @@ func (p Pattern) Tessellation() {
 	p.Svg.Rect(0, 0, p.Width, p.Height, `fill="url(#pattern)"`)
 }
 
-func (p Pattern) buildTessellationPattern(sideLen, hexWidth, hexHeight, tileWidth, tileHeight, triangleHeight float64) {
+func (p *Pattern) buildTessellationPattern(sideLen, hexWidth, hexHeight, tileWidth, tileHeight, triangleHeight float64) {
 	// build rotated triangle shape points
 	triangle := [][2]float64{{0, 0}, {triangleHeight, sideLen / 2}, {0, sideLen}, {0, 0}}
 
@@ -59,7 +59,7 @@ func (p Pattern) buildTessellationPattern(sideLen, hexWidth, hexHeight, tileWidt
 			p.Svg.Polyline(triangle, p.tessellationStyles(val, p.Svg.Transform(transforms...))...)
 
 			transforms = []string{
-				p.Svg.Translate(sideLen/2, tileHeight- -sideLen/2),
+				p.Svg.Translate(sideLen/2, tileHeight-sideLen/2),
 				p.Svg.Rotate(0.0, sideLen/2, triangleHeight/2),
 				p.Svg.Scale(1, -1),
 			}
@@ -164,7 +164,7 @@ func (p Pattern) buildTessellationPattern(sideLen, hexWidth, hexHeight, tileWidt
 	}
 }
 
-func (p Pattern) tessellationStyles(colourValue float64, style string) []string {
+func (p *Pattern) tessellationStyles(colourValue float64, style string) []string {
 	var styles []string
 	styles = append(styles, fmt.Sprintf(`stroke="%s"`, p.Styles.StrokeColour))
 	styles = append(styles, fmt.Sprintf(`stroke-opacity="%.2f"`, p.Styles.StrokeOpacity))

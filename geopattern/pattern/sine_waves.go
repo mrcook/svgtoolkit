@@ -6,7 +6,7 @@ import (
 )
 
 // SineWaves generator pattern.
-func (p Pattern) SineWaves() {
+func (p *Pattern) SineWaves() {
 	period := math.Floor(p.reMap(p.seedToInt(0, 1), 0, 15, 100, 400))
 	amplitude := math.Floor(p.reMap(p.seedToInt(1, 1), 0, 15, 30, 100))
 	waveThickness := math.Floor(p.reMap(p.seedToInt(2, 1), 0, 15, 3, 30))

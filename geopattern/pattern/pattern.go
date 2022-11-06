@@ -1,7 +1,7 @@
 // Package pattern is used to generate various geo patterns.
 //
-//		pat := pattern.New(400, 400, "The Pattern Package", canvas)
-//		pat.Generate()
+//	pat := pattern.New(400, 400, "The Pattern Package", canvas)
+//	pat.Generate()
 //
 // Then add additional elements to the svg.Canvas as needed.
 package pattern
@@ -65,7 +65,7 @@ func New(width, height int, seedValue string, image io.Writer) (*Pattern, error)
 //
 // Before executing this will check that all dependencies are satisfied. If
 // possible defaults will be used, although Seed and Svg will return an error.
-func (p Pattern) Generate() error {
+func (p *Pattern) Generate() error {
 	if p.Seed == nil {
 		return fmt.Errorf("seed must be initialized")
 	}
@@ -97,7 +97,7 @@ func (p Pattern) Generate() error {
 }
 
 // Selects the pattern generator based on the seed and executes it.
-func (p Pattern) generatePatterns() error {
+func (p *Pattern) generatePatterns() error {
 	// trigger pattern generator: chevron, etc.
 	generatorID := p.determineGeneratorIndex()
 	switch generatorID {
@@ -139,15 +139,15 @@ func (p Pattern) generatePatterns() error {
 	return nil
 }
 
-func (p Pattern) reMap(value, vMin, vMax, dMin, dMax float64) float64 {
+func (p *Pattern) reMap(value, vMin, vMax, dMin, dMax float64) float64 {
 	return colour.ReMap(value, vMin, vMax, dMin, dMax)
 }
 
-func (p Pattern) seedToInt(index, len int) float64 {
+func (p *Pattern) seedToInt(index, len int) float64 {
 	return float64(p.Seed.ToInt(index, len))
 }
 
-func (p Pattern) fillColour(val int) string {
+func (p *Pattern) fillColour(val int) string {
 	if val%2 == 0 {
 		return p.Styles.FillColourLight
 	} else {
@@ -155,11 +155,11 @@ func (p Pattern) fillColour(val int) string {
 	}
 }
 
-func (p Pattern) opacity(colourValue float64) float64 {
+func (p *Pattern) opacity(colourValue float64) float64 {
 	return colour.ReMap(colourValue, 0, 15, p.Styles.OpacityMin, p.Styles.OpacityMax)
 }
 
-func (p Pattern) determineGeneratorIndex() GeneratorType {
+func (p *Pattern) determineGeneratorIndex() GeneratorType {
 	index := p.Seed.ToInt(20, 1)
 	if index >= len(p.Generators) {
 		return Xes

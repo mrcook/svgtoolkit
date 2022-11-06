@@ -3,7 +3,7 @@ package pattern
 import "fmt"
 
 // RingsOverlapping generator pattern.
-func (p Pattern) RingsOverlapping() {
+func (p *Pattern) RingsOverlapping() {
 	scale := p.seedToInt(0, 1)
 	size := p.reMap(scale, 0, 15, 10, 60)
 	strokeWidth := size / 4
@@ -20,7 +20,7 @@ func (p Pattern) RingsOverlapping() {
 	p.Svg.Rect(0, 0, p.Width, p.Height, `fill="url(#pattern)"`)
 }
 
-func (p Pattern) buildRingsOverlappingPattern(size, strokeWidth float64) {
+func (p *Pattern) buildRingsOverlappingPattern(size, strokeWidth float64) {
 	index := 0
 	for y := 0; y <= 5; y++ {
 		for x := 0; x <= 5; x++ {

@@ -6,7 +6,7 @@ import (
 )
 
 // SquaresMosaic generator pattern.
-func (p Pattern) SquaresMosaic() {
+func (p *Pattern) SquaresMosaic() {
 	size := p.reMap(p.seedToInt(0, 1), 0, 15, 15, 50)
 
 	// fill the canvas with shapes
@@ -40,7 +40,7 @@ func (p Pattern) SquaresMosaic() {
 	}
 }
 
-func (p Pattern) drawInnerMosaicTile(x, y, size float64, colourValues [2]float64) {
+func (p *Pattern) drawInnerMosaicTile(x, y, size float64, colourValues [2]float64) {
 	triangle := buildRightTriangleShapePoints(size)
 
 	var styles []string
@@ -72,7 +72,7 @@ func (p Pattern) drawInnerMosaicTile(x, y, size float64, colourValues [2]float64
 	p.Svg.Polyline(triangle, group...)
 }
 
-func (p Pattern) drawOuterMosaicTile(x, y, size, colourValue float64) {
+func (p *Pattern) drawOuterMosaicTile(x, y, size, colourValue float64) {
 	triangle := buildRightTriangleShapePoints(size)
 
 	var styles []string

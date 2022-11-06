@@ -6,7 +6,7 @@ import (
 )
 
 // SquaresNested generator pattern.
-func (p Pattern) SquaresNested() {
+func (p *Pattern) SquaresNested() {
 	blockSize := p.reMap(p.seedToInt(0, 1), 0, 15, 4, 12)
 	squareSize := blockSize * 7
 

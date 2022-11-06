@@ -6,7 +6,7 @@ import (
 )
 
 // Octagons generator pattern.
-func (p Pattern) Octagons() {
+func (p *Pattern) Octagons() {
 	size := p.reMap(p.seedToInt(0, 1), 0, 15, 10, 60)
 
 	// adjust diamond size to fit canvas width

@@ -6,7 +6,7 @@ import (
 )
 
 // CirclesOverlapping generator pattern.
-func (p Pattern) CirclesOverlapping() {
+func (p *Pattern) CirclesOverlapping() {
 	scale := p.seedToInt(0, 1)
 	diameter := p.reMap(scale, 0, 15, 25, 200)
 	radius := diameter / 2

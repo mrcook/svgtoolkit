@@ -6,7 +6,7 @@ import (
 )
 
 // Diamonds generator pattern.
-func (p Pattern) Diamonds() {
+func (p *Pattern) Diamonds() {
 	width := p.reMap(p.seedToInt(0, 1), 0, 15, 10, 50)
 	height := p.reMap(p.seedToInt(1, 1), 0, 15, 10, 50)
 

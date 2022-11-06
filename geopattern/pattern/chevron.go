@@ -6,7 +6,7 @@ import (
 )
 
 // Chevrons generator pattern.
-func (p Pattern) Chevrons() {
+func (p *Pattern) Chevrons() {
 	width := p.reMap(p.seedToInt(0, 1), 0, 15, 30, 80)
 	height := p.reMap(p.seedToInt(0, 1), 0, 15, 30, 80)
 
@@ -51,7 +51,7 @@ func (p Pattern) Chevrons() {
 	}
 }
 
-func (p Pattern) buildChevronShape(width, height float64) {
+func (p *Pattern) buildChevronShape(width, height float64) {
 	e := height * 0.66
 
 	p.Svg.Polyline([][2]float64{{0, 0}, {width / 2, height - e}, {width / 2, height}, {0, e}, {0, 0}})

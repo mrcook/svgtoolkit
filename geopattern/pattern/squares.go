@@ -6,7 +6,7 @@ import (
 )
 
 // Squares generator pattern.
-func (p Pattern) Squares() {
+func (p *Pattern) Squares() {
 	size := p.reMap(p.seedToInt(0, 1), 0, 15, 10, 60)
 
 	// fill the canvas with shapes

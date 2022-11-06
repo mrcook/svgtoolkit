@@ -3,7 +3,7 @@ package pattern
 import "fmt"
 
 // Xes generator pattern.
-func (p Pattern) Xes() {
+func (p *Pattern) Xes() {
 	squareSize := p.reMap(p.seedToInt(0, 1), 0, 15, 10, 25)
 	xSize := squareSize * 3 * 0.943
 
@@ -19,7 +19,7 @@ func (p Pattern) Xes() {
 	p.Svg.Rect(0, 0, p.Width, p.Height, `fill="url(#pattern)"`)
 }
 
-func (p Pattern) buildXesPattern(squareSize, xSize float64) {
+func (p *Pattern) buildXesPattern(squareSize, xSize float64) {
 	index := 0
 	for y := 0; y <= 5; y++ {
 		for x := 0; x <= 5; x++ {
@@ -98,7 +98,7 @@ func (p Pattern) buildXesPattern(squareSize, xSize float64) {
 	}
 }
 
-func (p Pattern) buildXesPlusShape(squareSize float64, styles []string) {
+func (p *Pattern) buildXesPlusShape(squareSize float64, styles []string) {
 	p.Svg.Group(styles...)
 	p.buildPlusSignShape(squareSize)
 	p.Svg.GroupClose()
