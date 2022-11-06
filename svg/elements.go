@@ -27,6 +27,28 @@ func (s *Canvas) Filter(id string, attributes ...string) {
 	s.println()
 }
 
+// FeBlend composites two objects together using commonly used imaging software blending modes.
+// It performs a pixel-wise combination of two input images.
+//
+// in = first input image to the blending operation.
+// in2 = second input image to the blending operation.
+// mode = the image blending mode: normal, multiply, screen, darken, lighten.
+//
+// SVG Reference: https://www.w3.org/TR/SVG11/filters.html#feBlendElement
+func (s *Canvas) FeBlend(in, in2, mode string, attributes ...string) {
+	mode = strings.ToLower(mode)
+
+	switch mode {
+	case "normal", "multiply", "screen", "darken", "lighten":
+		// valid mode type
+	default:
+		mode = "normal"
+	}
+
+	s.printf(`<feBlend in="%s" in2="%s" mode="%s" %s />`, in, in2, mode, strings.Join(attributes, " "))
+	s.println()
+}
+
 // FeGaussianBlur provides a filter primitive to perform a Gaussian blur on the input image.
 //
 // SVG Reference: http://www.w3.org/TR/SVG11/filters.html#feGaussianBlurElement
