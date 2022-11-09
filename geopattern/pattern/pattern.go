@@ -21,10 +21,11 @@ const defaultBackgroundColour = "#933c3c"
 // packages for correct usage. It requires a svg.Canvas upon which to write the
 // SVG shapes, along with basic colour and styling configuration.
 type Pattern struct {
-	X      int // Horizontal Position
-	Y      int // Vertical Position
-	Width  int // Width of the pattern canvas
-	Height int // Height of the pattern canvas
+	X      int     // Horizontal Position
+	Y      int     // Vertical Position
+	Width  int     // Width of the pattern canvas
+	Height int     // Height of the pattern canvas
+	Zoom   float64 // Zoom factor
 
 	Seed       *seed.Seed      // Seed is used for select one of the generators.
 	BaseColour *colour.Colour  // Base colour for the pattern.
@@ -51,6 +52,7 @@ func New(width, height int, seedValue string, image io.Writer) (*Pattern, error)
 	pattern := &Pattern{
 		Width:  width,
 		Height: height,
+		Zoom:   1.0,
 
 		Seed:       seed.New(seedValue),
 		BaseColour: bgColour,
@@ -59,6 +61,15 @@ func New(width, height int, seedValue string, image io.Writer) (*Pattern, error)
 		Svg:        svg.New(width, height, image),
 	}
 	return pattern, nil
+}
+
+// SetZoom will scale the pattern by the given amount.
+func (p *Pattern) SetZoom(factor float64) error {
+	if factor < 0.1 {
+		return fmt.Errorf("zoom must be >= 0.1")
+	}
+	p.Zoom = factor
+	return nil
 }
 
 // Generate is the function which produces a coloured geo pattern.
@@ -82,7 +93,11 @@ func (p *Pattern) Generate() error {
 		p.Styles = DefaultStylePresets()
 	}
 
-	p.Svg.Group(p.Svg.Transform(p.Svg.Translate(p.X, p.Y)))
+	transformDefinitions := []string{
+		p.Svg.Translate(p.X, p.Y),
+		p.Svg.Scale(p.Zoom, p.Zoom),
+	}
+	p.Svg.Group(p.Svg.Transform(transformDefinitions...))
 
 	// generate background plane
 	p.Svg.Rect(0, 0, p.Width, p.Height, fmt.Sprintf(`fill="%s"`, p.Svg.RGB(p.BaseColour.Rgb())))
